@@ -10,7 +10,7 @@
 [![Live data · no API keys](https://img.shields.io/badge/market_data-live_public-orange.svg)](experiments/verify_live.py)
 [![Reproducible](https://img.shields.io/badge/reproduce-one_command-brightgreen.svg)](scripts/run_all.sh)
 
-[🌐 Live web preview & interactive quiz](preview.html) · [🚀 Quick start](#-quick-start-30-seconds) · [🌱 Beginner guide](#-beginner-guide--read-this-and-you-are-a-professional) · [📊 Results](#-live-market-results-executed-2026-10-07-costs-10-bps-one-way) · [🎬 Demo](#-demo--watch-it-work)
+[🌐 Live web preview & interactive quiz](https://m0-ar.github.io/self-improving-trading-agent-phd-2026/preview.html) · [🚀 Quick start](#-quick-start-30-seconds) · [🌱 Beginner guide](#-beginner-guide--read-this-and-you-are-a-professional) · [📊 Results](#-live-market-results-executed-2026-10-07-costs-10-bps-one-way) · [🎬 Demo](#-demo--watch-it-work)
 
 </div>
 
@@ -266,9 +266,19 @@ No keys. If a source is blocked in your region the ladder logs `FAIL` and contin
 
 ## 🌐 GitHub Pages web preview
 
-`preview.html` is a self-contained page (no build step, no server) with the story, the numbers, the charts and the interactive quiz. To publish it as the repo's website:
+Click any link — all three resolve to the same interactive page (story + numbers + charts + quiz), no matter whether Pages serves from `/` (root) or `/docs`:
 
-1. Push this repo to GitHub. **2.** Open **Settings → Pages → Build and deployment → Deploy from a branch → `main` / `/ (root)` → Save.** **3.** Wait ~1 minute, then open `https://<your-user>.github.io/<repo>/preview.html`. **4.** (Optional) To embed a narrated video with sound, add `docs/demo.mp4` and reference it from `preview.html` — Pages supports real `<video>` embeds.
+| Link | What it opens |
+|---|---|
+| [🌐 Live site home (`/`)](https://m0-ar.github.io/self-improving-trading-agent-phd-2026/) | Entry page → redirects to the interactive preview |
+| [🖥️ Interactive preview (`/preview.html`)](https://m0-ar.github.io/self-improving-trading-agent-phd-2026/preview.html) | Full page: results, charts, demo video slot, 6-question quiz |
+| [📄 Mirror (`/docs/preview.html`)](https://m0-ar.github.io/self-improving-trading-agent-phd-2026/docs/preview.html) | Same page via the `/docs` path (works when Pages source is `/docs`) |
+
+To publish it as the repo's website:
+
+1. Push this repo to GitHub. **2.** Open **Settings → Pages → Build and deployment → Deploy from a branch → `main` / `/docs` (recommended; `/` root also works)** → Save. **3.** Wait 1–2 minutes (watch the Actions "pages build and deployment" run), then click the links above. **4.** (Optional) To embed a narrated video with sound, add `docs/demo.mp4` and reference it from `preview.html` — Pages supports real `<video>` embeds.
+
+> Diagnostics: a green "Deployed" badge only proves *something* built. If a link 404s, probe all three paths (`/`, `/preview.html`, `/docs/preview.html`) — the pattern tells you whether Pages is serving `/` or `/docs` source, or is still building.
 
 ---
 
