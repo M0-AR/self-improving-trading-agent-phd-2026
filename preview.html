@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Improving Trading Agents — Live-Verified Benchmark</title>
+<meta name="description" content="Do self-learning trading bots really learn? Verified on 4,605 real market bars. SPY Sharpe 0.28→0.76; crypto honestly held. MIT, one-command reproduce, interactive quiz.">
+<style>
+:root{--bg:#0b1020;--card:#141b33;--ink:#eef2ff;--mut:#a5b0d0;--acc:#5eead4;--acc2:#a78bfa;--good:#34d399;--bad:#f87171;--warn:#fbbf24}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:radial-gradient(1200px 600px at 80% -10%,#1b2450 0%,var(--bg) 55%);color:var(--ink);line-height:1.6}
+.wrap{max-width:1020px;margin:0 auto;padding:24px}
+.hero{text-align:center;padding:48px 16px 24px}
+.hero h1{font-size:clamp(28px,5vw,52px);margin:0 0 8px;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{color:var(--mut);font-size:18px;max-width:760px;margin:0 auto}
+.badges{margin:16px 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.badges span{border:1px solid #2b3560;background:#11173a;padding:4px 12px;border-radius:999px;font-size:13px;color:var(--mut)}
+.card{background:linear-gradient(180deg,#151c3a,#10162e);border:1px solid #26305c;border-radius:16px;padding:24px;margin:20px 0;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.card h2{margin-top:0;font-size:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.stat{background:#0d1330;border:1px solid #26305c;border-radius:12px;padding:16px;text-align:center}
+.stat b{font-size:26px;display:block}
+.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid #26305c;padding:10px 8px;text-align:left;vertical-align:top}
+th{color:var(--acc)}
+img.chart{width:100%;border-radius:12px;border:1px solid #26305c;margin:10px 0;background:#fff}
+.btn{display:inline-block;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#081120;font-weight:700;padding:12px 22px;border-radius:12px;text-decoration:none;margin:6px 8px 6px 0}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid #3b4678}
+code{background:#0a0f26;padding:2px 8px;border-radius:8px;border:1px solid #26305c;font-size:13px}
+pre{background:#0a0f26;border:1px solid #26305c;border-radius:12px;padding:16px;overflow:auto;font-size:13px}
+.quiz-q{border:1px solid #2b3560;border-radius:12px;padding:16px;margin:12px 0;background:#0d1330}
+.quiz-q h4{margin:0 0 8px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:1px solid #2b3560;background:#141b3d;color:var(--ink);cursor:pointer;font-size:15px}
+.opt:hover{border-color:var(--acc)}
+.opt.correct{border-color:var(--good);background:#0c2b22}
+.opt.wrong{border-color:var(--bad);background:#2b1414}
+.explain{display:none;color:var(--mut);font-size:14px;margin-top:8px}
+#score{font-size:20px;font-weight:800;text-align:center;padding:16px;border-radius:12px;background:#0d1330;border:1px dashed #3b4678}
+footer{color:var(--mut);text-align:center;padding:32px 0;font-size:13px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step{background:#0d1330;border:1px solid #26305c;border-radius:12px;padding:14px}
+.step b{color:var(--acc)}
+.video-box{position:relative;border-radius:12px;overflow:hidden;border:1px solid #26305c;background:#000;text-align:center;padding:40px 16px}
+@media(max-width:640px){.wrap{padding:14px}.card{padding:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+<h1>Do self-learning trading bots really learn?</h1>
+<p class="sub">We built the viral "self-improving trading agent" — but attached a strict examiner. Tested on <b>4,605 real market bars</b> (BTC · ETH · SPY, no API keys). Verdict: <b class="good">SPY improved Sharpe 0.28 → 0.76</b>, and the agent <b class="warn">honestly refused</b> to "improve" crypto because the gains were luck. Refusing is intelligence.</p>
+<div class="badges"><span>MIT license</span><span>Python 3.12</span><span>Docker one-command</span><span>Live data · no keys</span><span>4,605 real bars</span></div>
+<p><a class="btn" href="#quiz">🎓 Take the 2-minute quiz</a><a class="btn ghost" href="#quickstart">🚀 Run it yourself</a></p>
+</div>
+
+<div class="card"><h2>📊 The result in 10 seconds</h2>
+<div class="grid">
+<div class="stat"><b class="good">0.28 → 0.76</b>SPY Sharpe after 5 learning cycles</div>
+<div class="stat"><b class="good">−29.3% → −14.5%</b>SPY max drawdown (floor −15% ✅)</div>
+<div class="stat"><b class="warn">3× HELD 🛡️</b>BTC · ETH · BTC-bear: gate refused luck</div>
+<div class="stat"><b>−0.36 / −0.54</b>Walk-forward correlation ≈ 0 (no edge)</div>
+</div>
+<p style="color:var(--mut)">Every number reproduces with <code>bash scripts/run_all.sh</code>. Costs: 10 bps per turnover. No synthetic prices.</p>
+<img class="chart" src="docs/img/equity_real.png" alt="Equity curves from real data">
+<img class="chart" src="docs/img/sharpe_real.png" alt="Net Sharpe baselines">
+<img class="chart" src="docs/img/wfc_real.png" alt="Walk-forward correlation">
+</div>
+
+<div class="card"><h2>🎬 Demo video</h2>
+<div class="video-box">
+<p style="font-size:20px">▶️ 60-second tour: one command → the verdict → the quiz</p>
+<!-- Replace VIDEO_ID with your upload. Pages supports real <video> embeds; README links here. -->
+<!-- <video controls width="100%" poster="docs/img/demo-thumb.png"><source src="docs/demo.mp4" type="video/mp4"></video> -->
+<p><a class="btn" href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID">Watch on YouTube</a>
+<a class="btn ghost" href="docs/DEMO.md">Recording script (60s)</a></p>
+<p style="color:var(--mut);font-size:13px">Maintainer: replace <code>YOUR_VIDEO_ID</code> with your upload + add <code>docs/demo.mp4</code> to enable inline playback here.</p>
+</div></div>
+
+<div class="card" id="quickstart"><h2>🚀 Quick start (30 seconds)</h2>
+<pre>docker compose up --build
+# or: pip install -r requirements.txt && bash scripts/run_all.sh
+# → results/self_improving_summary.csv  (the verdict)
+# → results/ledger.json                 (the agent's memory)</pre>
+<div class="steps">
+<div class="step"><b>1. Student?</b> Run it, take the quiz below, quote Sharpe + drawdown + WFC in your interview.</div>
+<div class="step"><b>2. Builder?</b> Add a rule in <code>src/baselines.py</code>; the examiner tells you skill vs luck.</div>
+<div class="step"><b>3. Teacher?</b> Play the video, show the WFC chart: "this is why backtests lie".</div>
+<div class="step"><b>4. Researcher?</b> Extend hidden patterns: intraday entropy, purged folds, vol overlays.</div>
+</div></div>
+
+<div class="card"><h2>🧠 How it works (no jargon)</h2>
+<table><tr><th>Viral claim</th><th>What we actually built</th></tr>
+<tr><td>Accurate data</td><td>4 free sources with fallback ladder; every fetch logged; decisions use yesterday's prices only.</td></tr>
+<tr><td>Runs 24/7</td><td>Docker service + scheduler pattern + append-only ledger + automatic kill-switch at −15%.</td></tr>
+<tr><td>Clear goal</td><td>Written before trading: Sharpe ≥ 1.0 AND drawdown ≥ −15% — plus failure bands.</td></tr>
+<tr><td>Learns from mistakes</td><td>Find worst 20 days → change ONE thing → exam on fresh data → keep or refuse. Refusing counts.</td></tr></table>
+<p style="color:var(--mut)">Method motto: "Let's work this out in a step-by-step way to be sure we have the right answer." One variable, one outcome, one lesson.</p>
+</div>
+
+<div class="card" id="quiz"><h2>🎓 Interactive quiz — from zero to pro (6 questions)</h2>
+<p style="color:var(--mut)">Answer all 6. Explanations appear instantly. Score 6/6 and you can explain this repo to anyone.</p>
+<div id="quizbox"></div>
+<div id="score">Your score: 0 / 6 — let's go 👇</div>
+<p style="text-align:center"><button class="btn" onclick="resetQuiz()">↺ Retake quiz</button></p>
+</div>
+
+<div class="card"><h2>⚠️ Honest limits</h2>
+<p>Daily bars only · 10 bps costs (no market impact) · 27-point grid · single-asset books · hosting templated, not live money. <b>Do not trade real capital on these baselines.</b> This is a benchmark for learning — and learning includes learning when to say no.</p></div>
+
+<footer>MIT · Market data © its exchanges · Enable this page via GitHub: Settings → Pages → Deploy from branch → <code>main</code> / <code>/ (root)</code> → open <code>/preview.html</code><br>Full paper: <code>README.md</code> · Protocol: <code>docs/METHODS.md</code></footer>
+</div>
+
+<script>
+const Q=[
+{q:"A strategy made 50% with terrifying crashes, another made 20% smoothly. Which does the Sharpe ratio prefer — and why?",
+o:["The 50% one — profit is all that matters","The 20% smooth one — Sharpe rewards profit per unit of scariness","Neither — Sharpe ignores crashes"],
+a:1,e:"Sharpe = return ÷ volatility. Our BTC buy-hold made +320% total yet failed (Sharpe 0.81, drawdown −53%). SPY evolved made +45% and passed (Sharpe 0.76, DD −14.5%). The goal defines the winner."},
+{q:"Your backtest uses today's closing price to decide today's trade. What is this?",
+o:["Walk-forward validation","Lookahead bias (cheating) — the #1 fake-screenshot machine","Bootstrap confidence"],
+a:1,e:"Using information not available at decision time. We forbid it: every signal is shifted by one bar (signal.shift(1)) on closed bars only."},
+{q:"You tried 50 variations; the best shows Sharpe 1.8 in-sample. What should you check first?",
+o:["Ship it — 1.8 is great","Deflated Sharpe + out-of-sample test — with 50 tries, luck alone looks brilliant","Delete the other 49 tries from the report"],
+a:1,e:"Multiple testing inflates luck. We report Deflated Sharpe (PSR) and require the bootstrap CI-low to improve on fresh data before promoting anything."},
+{q:"In-sample ranking of 27 settings has correlation ≈ −0.5 with out-of-sample ranking (WFC). Correct action?",
+o:["Ship the in-sample winner anyway","Hold — WFC ≤ 0 means no real edge; promoting ships luck","Try 270 settings instead"],
+a:1,e:"Exactly our BTC/ETH result (WFC −0.36/−0.54): the ledger wrote 'gate held'. Abstention is the successful behavior."},
+{q:"The loop may change only ONE parameter per cycle. Why?",
+o:["To be slow on purpose","Scientific method: one variable → one outcome → one attributable lesson","Because code can't change two lines"],
+a:1,e:"Change three things and improve — which one worked? Unknowable. Our motto: work it out step-by-step so every lesson is attributable."},
+{q:"Max drawdown hits −25% with a −15% floor, while profit is positive. Verdict?",
+o:["Success — profit is positive","Failure — the floor is hard; kill-switch trips regardless of profit","Wait for recovery, then decide"],
+a:1,e:"Pre-registered failure band: DD < −15% = failure, period. BTC breakout (0.93 Sharpe, −28.9% DD) fails; SPY evolved (−14.5%) passes. Risk control is the strategy."}];
+let score=0,answered={};
+function renderQuiz(){
+const box=document.getElementById('quizbox');box.innerHTML='';score=0;answered={};upd();
+Q.forEach((item,i)=>{
+const d=document.createElement('div');d.className='quiz-q';
+d.innerHTML='<h4>'+(i+1)+'. '+item.q+'</h4>';
+item.o.forEach((opt,j)=>{
+const b=document.createElement('button');b.className='opt';b.textContent=opt;
+b.onclick=()=>answer(i,j,b,d);d.appendChild(b);});
+const e=document.createElement('div');e.className='explain';e.textContent='💡 '+item.e;d.appendChild(e);
+box.appendChild(d);});}
+function answer(i,j,btn,div){
+if(answered[i])return;answered[i]=true;
+const btns=div.querySelectorAll('.opt');
+btns[Q[i].a].classList.add('correct');
+if(j===Q[i].a){score++;}else{btn.classList.add('wrong');}
+div.querySelector('.explain').style.display='block';upd();}
+function upd(){
+const s=document.getElementById('score');
+let lvl=score+'/6 — ';lvl+=score===6?'🏆 Pro! Teach someone else.':score>=4?'💪 Strong — one more read.':score>=2?'🌱 Growing — retry the misses.':"🌱 Just starting — every pro was here.";
+s.textContent='Your score: '+score+' / 6 — '+lvl;}
+function resetQuiz(){renderQuiz();document.getElementById('quiz').scrollIntoView({behavior:'smooth'});}
+renderQuiz();
+</script>
+</body>
+</html>
