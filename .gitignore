@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+# Env / secrets (never commit real keys; this repo needs none)
+.env
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
+# Jupyter
+.ipynb_checkpoints/
+# Note: data/*.csv and results/* are INTENTIONALLY committed (frozen live-data slice + verdicts)
