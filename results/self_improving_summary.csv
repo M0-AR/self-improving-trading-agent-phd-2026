@@ -1,0 +1,5 @@
+asset,wfc,best_params,label,n,sharpe,sharpe_ci_low,sharpe_ci_med,sharpe_ci_high,deflated_sharpe_psr,max_drawdown_pct,cagr,total_return,passes_dd_floor_-15,mean_oos_sharpe
+BTC_binance,-0.3585,"(20, 50, 0.0)",f20_s50_r0.0,1500,0.5613,-0.0103,0.5672,1.3961,1.0,-38.59,0.1286,1.0548,False,0.505
+BTC_coinbase,-0.7696,"(20, 50, 0.0)",f20_s50_r0.0,350,0.191,-1.1473,0.1558,1.6946,0.9826,-27.42,0.0182,0.0254,False,0.191
+ETH_binance,-0.541,"(20, 50, 0.0)",f20_s50_r0.0,1500,0.4257,-0.4571,0.4683,1.2458,1.0,-47.1,0.0933,0.7006,False,0.3789
+SPY_yahoo,-0.0086,"(10, 100, 0.0)",f10_s100_r0.0,1255,0.7567,-0.0951,0.7632,1.664,1.0,-14.46,0.0774,0.4498,True,1.2591

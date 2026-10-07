@@ -1,0 +1,23 @@
+services:
+  research:
+    build: .
+    container_name: sita-research
+    volumes:
+      - ./:/workspace
+      - ./data:/workspace/data
+      - ./results:/workspace/results
+    working_dir: /workspace
+    command: bash scripts/run_all.sh
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=UTC
+  notebook:
+    build: .
+    container_name: sita-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
+    profiles: ["notebook"]

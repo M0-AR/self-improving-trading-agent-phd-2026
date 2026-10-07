@@ -1,0 +1,35 @@
+{
+  "attempts": [
+    "SPY_stooq FAIL Stooq empty for spy.us",
+    "BTC_binance OK",
+    "ETH_binance OK",
+    "BTC_coinbase OK",
+    "SPY_yahoo OK"
+  ],
+  "assets": {
+    "BTC_binance": {
+      "rows": 1500,
+      "from": "2022-08-30 00:00:00",
+      "to": "2026-10-07 00:00:00",
+      "last_close": 83392.47
+    },
+    "ETH_binance": {
+      "rows": 1500,
+      "from": "2022-08-30 00:00:00",
+      "to": "2026-10-07 00:00:00",
+      "last_close": 2569.97
+    },
+    "BTC_coinbase": {
+      "rows": 350,
+      "from": "2025-10-23 00:00:00",
+      "to": "2026-10-07 00:00:00",
+      "last_close": 83329.43
+    },
+    "SPY_yahoo": {
+      "rows": 1255,
+      "from": "2021-10-07 13:30:00",
+      "to": "2026-10-07 13:30:00",
+      "last_close": 777.3
+    }
+  }
+}
